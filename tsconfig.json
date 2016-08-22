@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "noImplicitAny": false,
+        "sourceMap": false,
+        "declaration": true,
+        "outDir": "lib",
+        "rootDir": "src",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "moduleResolution": "node"
+        
+    },
+    "files": [
+    	"typings/index.d.ts",
+        "src/index.ts",
+        "src/select2/index.ts",
+        "src/select2/adaptor.ts"
+    ]
+}

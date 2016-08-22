@@ -1,0 +1,8 @@
+{
+  "name": "views.form.editors",
+  "dependencies": {},
+  "globalDependencies": {
+    "jquery": "registry:dt/jquery#1.10.0+20160704162008",
+    "select2": "registry:dt/select2#4.0.1+20160812083516"
+  }
+}
