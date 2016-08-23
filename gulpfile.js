@@ -36,12 +36,18 @@ gulp.task('bundle', ['typescript'], () => {
         output: {
             libraryTarget: 'umd',
             library: ['views', 'form'],
-            filename: 'views.form.js'
+            filename: 'views.form.editors.js'
         },
         externals: {
             "views": 'views',
             "collection": "collection",
-            "orange": "orange"
+            "orange": "orange",
+            "views.form": {
+                commonjs: 'views.form',
+                root: ['views', 'form'],
+                amd: 'views.form',
+                commonjs2: 'views.form'
+            }
             //'stick/lib/template': 'stick' 
         },
         module: {

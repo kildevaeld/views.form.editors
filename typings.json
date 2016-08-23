@@ -2,6 +2,7 @@
   "name": "views.form.editors",
   "dependencies": {},
   "globalDependencies": {
+    "cropperjs": "registry:dt/cropperjs#0.0.0+20160724062638",
     "jquery": "registry:dt/jquery#1.10.0+20160704162008",
     "select2": "registry:dt/select2#4.0.1+20160812083516"
   }

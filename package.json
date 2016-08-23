@@ -23,9 +23,12 @@
   "dependencies": {
     "select2": "^4.0.3",
     "orange": "git+https://github.com/kildevaeld/orange.git",
-    "collection": "git+https://github.com/kildevaeld/collectionjs.git"
+    "collection": "git+https://github.com/kildevaeld/collectionjs.git",
+    "views": "git+https://github.com/kildevaeld/views.git",
+    "views.form": "git+https://github.com/kildevaeld/views.form.git",
+    "assets.gallery": "git+https://github.com/kildevaeld/assets.gallery.git"
   },
   "peerDependencies": {
-    "views.form": "git+https://github.com/kildevaeld/views.form.git"
+    
   }
 }

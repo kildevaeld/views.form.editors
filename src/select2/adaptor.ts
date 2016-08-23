@@ -5,7 +5,7 @@ import {deferred, IPromise, find} from 'orange';
 import {Model, RestCollection, Collection, IModel} from 'collection';
 import {Select2} from './index';
 
-async function findInData(q: string, select: Select2): IPromise<IModel[]> {
+async function findInData(q: string, select: Select2): Promise<IModel[]> {
   let reg = new RegExp(`.*${q}.*`, 'ig');
   let out = select.data.filter(e => {
     if (e instanceof Model) {
