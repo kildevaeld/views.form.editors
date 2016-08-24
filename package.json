@@ -31,5 +31,16 @@
     "views.form": "git+https://github.com/kildevaeld/views.form.git",
     "assets.gallery": "git+https://github.com/kildevaeld/assets.gallery.git"
   },
-  "peerDependencies": {}
+  "peerDependencies": {},
+  "jspm": {
+    "format": "cjv",
+    "registry": "github",
+    "dependencies": {
+      "orange": "github:kildevaeld/orange@master",
+      "collection": "github:kildevaeld/collectionjs@master",
+      "views": "github:kildevaeld/views@master",
+      "views.form": "github:kildevaeld/views.form@master",
+      "assets.gallery": "github:kildevaeld/assets.gallery@master"
+    }
+  }
 }
