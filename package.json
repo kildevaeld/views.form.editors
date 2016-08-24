@@ -33,7 +33,7 @@
   },
   "peerDependencies": {},
   "jspm": {
-    "format": "cjv",
+    "format": "cjs",
     "registry": "github",
     "dependencies": {
       "orange": "github:kildevaeld/orange@master",
