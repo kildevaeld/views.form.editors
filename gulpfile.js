@@ -35,7 +35,7 @@ gulp.task('bundle', ['typescript'], () => {
         
         output: {
             libraryTarget: 'umd',
-            library: ['views', 'form'],
+            library: ['views', 'form', 'editors'],
             filename: 'views.form.editors.js'
         },
         externals: {

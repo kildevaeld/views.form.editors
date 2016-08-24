@@ -2,69 +2,160 @@
 <html>
 
 <head>
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../node_modules/assets.gallery/dist/css/assets-gallery.css" rel="stylesheet" />
     <script src="../node_modules/babel-polyfill/dist/polyfill.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../node_modules/orange/dist/orange.js"></script>
+
     <script src="../node_modules/views/dist/views.min.js"></script>
     <script src="../node_modules/collection/dist/collection.js"></script>
-    <script src="../dist/views.form.js"></script>
+    <script src="../node_modules/views.form/dist/views.form.min.js"></script>
+    <script src="../node_modules/assets.gallery/dist/js/assets-gallery.js"></script>
+    <script src="../dist/views.form.editors.js"></script>
+    <style>
+        [form-editor="assets.crop"] .crop-preview {
+            overflow: hidden;
+            border: 2px dashed #ccc;
+            position: relative;
+            
+        }
+        
+        [form-editor="assets.crop"] .crop-preview:before {
+            display: block;
+            content: "";
+            width: 100%;
+            padding-top: 66.66666666666666%;
+        }
+        
+        [form-editor="assets.crop"] .crop-preview> .content,
+        [form-editor="assets.crop"] .crop-preview .cropper-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        
+        .crop-preview {
+            margin-bottom: 10px;
+            
+        }
+        .crop-preview img {
+            width: 100%;
+        }
+        .gallery {
+            font-family: 'HelveticaNeue';
+            width: 100%;
+            height: 400px;
+        }
+        /*.gallery-area {
+  height: 100%;
+}
 
-    
+.gallery-list {
+  width: 55%;
+  height: 100%;
+  float: left;
+}
+.gallery-preview {
+  width: 45%;
+  height: 100%;
+  float: left;
+  
+}
+.assets-list-item {
+  font-size: 11px;
+  font-weight: 500;
+}*/
+        
+        .upload-btn-wrap {
+            display: inline-block;
+            position: relative;
+        }
+        
+        .upload-btn-wrap .upload-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            width: 100%;
+        }
+        
+        .assets-preview .preview-region .preview {
+            max-width: 100%;
+            max-height: auto !important;
+            -webkit-box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.5);
+            box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.5);
+        }
+        .upload-progress-container {
+            height:5px;position:absolute;bottom:0;left:0;width:100%;
+        }
+        .upload-progress {
+            height: 100%;
+            background-color:red;
+        }
+    </style>
 </head>
 
 <body>
-    <form id="form" name="form">
+    <form id="form" name="form" style="padding:20px;">
         <div class="field">
             <label calss="field-label">Name</label>
-            <input type="text" name="name" error="Du skal udfylde navn" required validate-min="10" />
+            <input type="text" name="name" error="Du skal udfylde navn" required validate-max="10" />
         </div>
-        <!--<div class="field">
-            <label class="field-label">Age</label>
-            <input type="number" name="age" validate-min="10" />
-        </div>
-        <div class="field">
-            <label>Test</label>
-            <input name="bjorn"  validate-match="name" required />
-        </div>
-        <div class="field">
-            <label>Url</label>
-            <input name="url"  validate-url required />
-        </div>
-        <div class="field">
-            <textarea style="resize:vertical;" name="text" autosize></textarea>
-        </div>-->
-        <div class="field">
+       
+        <div class="field" style="width:300px;">
             <label class="field-label">Image</label>
-            <div form-editor="image" host="http://localhost:5000" cropping></div>
+            <div name="image" form-editor="assets.crop" host="http://localhost:5000" cropping required validate-required="true"></div>
         </div>
 
     </form>
     <button id="button">ok</button>
     <script>
+        var client = Assets.createClient({
+            url: 'http://localhost:5000'
+        });
         
         var form = new views.form.Form({
             el: document.querySelector('#form'),
             createHelpAreas: true,
-            validateOnChange: true
+            validateOnChange: true,
+            fieldOptions: {
+                image: {
+                    editorOptions: {
+                        client: client,
+                        maxSize: 2048
+                    }
+                }
+
+            }
         });
-        
+
         form.model = new collection.Model({
             name: "Hello"
         });
 
         form.render()
-
+        console.log(form)
         var b = document.querySelector('#button');
-        b.addEventListener('click', function () {
+        b.addEventListener('click', function() {
             let v = form.validate();
-            console.log(v)
+            console.log(form.model)
         });
 
-        form.model.set('url', 'http://localhost');
+        //form.model.set('url', 'http://localhost');
 
-        form.model.on('change', function () {
+        form.model.on('change', function() {
             console.log(form.model.toJSON());
         })
+
         
+
         console.log(form)
     </script>
 </body>

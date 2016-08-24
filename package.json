@@ -10,14 +10,17 @@
   "description": "",
   "devDependencies": {
     "babel-loader": "^6.2.5",
+    "babel-polyfill": "^6.13.0",
     "babel-preset-es2015": "^6.13.2",
+    "bootstrap": "^3.3.7",
     "gulp": "^3.9.1",
     "gulp-rename": "^1.2.2",
     "gulp-typescript": "^2.13.6",
     "gulp-uglify": "^2.0.0",
+    "jquery": "^3.1.0",
     "merge2": "^1.0.2",
-    "webpack-stream": "^3.2.0",
-    "views.form": "git+https://github.com/kildevaeld/views.form.git"
+    "views.form": "git+https://github.com/kildevaeld/views.form.git",
+    "webpack-stream": "^3.2.0"
   },
   "typings": "lib/index",
   "dependencies": {
@@ -28,7 +31,5 @@
     "views.form": "git+https://github.com/kildevaeld/views.form.git",
     "assets.gallery": "git+https://github.com/kildevaeld/assets.gallery.git"
   },
-  "peerDependencies": {
-    
-  }
+  "peerDependencies": {}
 }

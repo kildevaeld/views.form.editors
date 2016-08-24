@@ -19,6 +19,7 @@
         "src/select2/adaptor.ts",
 
         "src/assets/index.ts",
-        "src/assets/modal.ts"
+        "src/assets/modal.ts",
+        "src/assets/crop-view.ts"
     ]
 }

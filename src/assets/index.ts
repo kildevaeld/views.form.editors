@@ -7,6 +7,8 @@ import {extend} from 'orange';
 
 import {Modal} from './modal';
 
+export * from './crop-view';
+/*
 let imageTemplate = `
   <div class="modal-container"></div>
   <div class="crop-container"></div>
@@ -45,7 +47,7 @@ export class ImagePicker extends BaseLayoutEditor<HTMLDivElement, AssetsModel> {
     private modal: Modal;
     private crop: CropView;
     private client: AssetsClient;
-    private _options: ImagePickerViewOptions;
+    _options: ImagePickerViewOptions;
 
     constructor(options?: ImagePickerViewOptions) {
         let o = extend({}, options || {}, {
@@ -60,7 +62,7 @@ export class ImagePicker extends BaseLayoutEditor<HTMLDivElement, AssetsModel> {
         this._options = options;
     
         this.client = options.client;
-
+        
         if (this.client == null) {
             throw new Error('client not defined')
         }
@@ -80,3 +82,4 @@ export class ImagePicker extends BaseLayoutEditor<HTMLDivElement, AssetsModel> {
     }
 
 }
+*/

@@ -13,6 +13,7 @@ const TEMPLATE = `
         <div class="modal-body gallery">
         </div>
         <div class="modal-footer">
+          <input type="file" class="btn btn-default pull-left" />
           <button type="button" class="btn btn-default" data-dismiss="modal">Luk</button>
           <button type="button" class="btn btn-primary select-btn">Vælg</button>
         </div>
@@ -59,7 +60,11 @@ export class Modal extends View<HTMLDivElement> {
   
   open () {
     if (this._isOpen) return;
+    this.gallery.selected = null;
     $(this.el).modal('show');
+    $(this.el).one('shown.bs.modal', () => {
+      this.gallery.collection.fetch();
+    })
     this._isOpen = true;
   }
   
