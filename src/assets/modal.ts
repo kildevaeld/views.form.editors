@@ -43,11 +43,17 @@ export class Modal extends View<HTMLDivElement> {
     super();
     
     this._gallery = new GalleryView(client, options);
+
+    this.listenTo(this._gallery, 'dblclick', () => {
+      if (this._gallery.selected !== null) {
+        this.trigger('selected');
+      }
+      this.close();
+    });
    
   }
   
   onRender () {
-    
     $(this.el).modal('hide');
     this.el.querySelector('.modal-body.gallery').appendChild(this._gallery.render().el);
     $(this.el).on('hidden.bs.modal', () => this._isOpen = false );
@@ -79,7 +85,6 @@ export class Modal extends View<HTMLDivElement> {
     if (this._gallery.selected !== null) {
       this.trigger('selected');
     }
-    
     this.close();
     
   }
