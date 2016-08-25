@@ -76,81 +76,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	}
 	__export(__webpack_require__(2));
-	/*
-	let imageTemplate = `
-	  <div class="modal-container"></div>
-	  <div class="crop-container"></div>
-	  <!--<label class="btn btn-sm btn-default">
-	    <span>Upload</span>
-	    <input style="display:none;" type="file" class="upload-btn" name="upload-button" />
-	  </label>-->
-	  <button class="gallery-btn btn btn-sm btn-default" title="Vælg fra galleri">Vælg</button>
-	  <button class="crop-btn btn btn-sm btn-default pull-right">Crop</button>
-	`;
-
-
-	export interface ImagePickerViewOptions extends GalleryViewOptions {
-	    maxSize?: number;
-	    client: AssetsClient;
-	}
-
-	@editor('image')
-	@attributes({
-	    template: () => imageTemplate,
-	    ui: {
-	        //modal: 'div.modal',
-	        button: '.upload-button',
-	        //preview: '.crop-preview'
-	    },
-	    events: {
-	        'click .gallery-btn': function (e) { e.preventDefault(); this.modal.toggle(); },
-	        'click .crop-btn': 'onToggleCropper',
-	    },
-	    attributes: {
-	        'form-editor': 'image-crop'
-	    }
-	})
-	export class ImagePicker extends BaseLayoutEditor<HTMLDivElement, AssetsModel> {
-
-	    private modal: Modal;
-	    private crop: CropView;
-	    private client: AssetsClient;
-	    _options: ImagePickerViewOptions;
-
-	    constructor(options?: ImagePickerViewOptions) {
-	        let o = extend({}, options || {}, {
-	            regions: {
-	                modal: '.modal-container',
-	                crop: '.crop-container'
-	            }
-	        })
-
-	        super(o);
-
-	        this._options = options;
-	    
-	        this.client = options.client;
-	        
-	        if (this.client == null) {
-	            throw new Error('client not defined')
-	        }
-	        
-	    }
-
-	    setValue(value: AssetsModel) {
-
-	    }
-
-	    getValue(): AssetsModel {
-	        return null;
-	    }
-
-	    clear() {
-
-	    }
-
-	}
-	*/
 
 /***/ },
 /* 2 */
@@ -188,7 +113,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var CropEditor = function (_views_form_1$BaseEdi) {
 	    _inherits(CropEditor, _views_form_1$BaseEdi);
 
-	    function CropEditor(options) {
+	    function CropEditor() {
+	        var options = arguments.length <= 0 || arguments[0] === undefined ? { resize: false } : arguments[0];
+
 	        _classCallCheck(this, CropEditor);
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CropEditor).call(this, options));

@@ -2,7 +2,7 @@ import { CropView, AssetsModel, CropViewOptions, AssetsClient, FileUploader } fr
 import { BaseEditor, IEditorOptions } from 'views.form';
 import { Modal } from './modal';
 export interface CropEditorOptions extends CropViewOptions, IEditorOptions {
-    client: AssetsClient;
+    client?: AssetsClient;
     maxSize?: number;
     mimeType?: string | string[];
     cropping?: boolean;

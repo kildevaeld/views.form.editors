@@ -19,7 +19,7 @@ const template = `
 `;
 
 export interface CropEditorOptions extends CropViewOptions, IEditorOptions {
-    client: AssetsClient;
+    client?: AssetsClient;
     maxSize?: number;
     mimeType?: string | string[];
     cropping?: boolean;
@@ -64,7 +64,7 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
         this.model = model;
     }
 
-    constructor(options?: CropEditorOptions) {
+    constructor(options: CropEditorOptions = {resize: false}) {
         super(options);
 
         ['host', 'maxSize', 'mimeType', 'ratio', 'cropping']
