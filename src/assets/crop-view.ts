@@ -88,7 +88,7 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
             });
         }
 
-        this.modal = new Modal(this.options.client, {});
+        this.modal = new Modal(client, {});
 
         if (this.options.cropping == true) {
             this.crop = new CropView({

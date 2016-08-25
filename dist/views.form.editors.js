@@ -137,7 +137,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                url: options.host
 	            });
 	        }
-	        _this.modal = new modal_1.Modal(_this.options.client, {});
+	        _this.modal = new modal_1.Modal(client, {});
 	        if (_this.options.cropping == true) {
 	            _this.crop = new assets_gallery_1.CropView({
 	                zoomable: false,
