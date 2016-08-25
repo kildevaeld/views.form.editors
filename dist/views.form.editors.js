@@ -204,7 +204,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 	        _this.options = options || { client: null, resize: false };
 	        var client = options.client;
-	        if (client == null) throw new Error('client expected');
+	        if (client == null) {
+	            if (options.host == null) throw new Error('client or host expected');
+	            client = assets_gallery_1.createClient({
+	                url: options.host
+	            });
+	        }
 	        _this.modal = new modal_1.Modal(_this.options.client, {});
 	        if (_this.options.cropping == true) {
 	            _this.crop = new assets_gallery_1.CropView({

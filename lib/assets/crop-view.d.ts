@@ -6,6 +6,7 @@ export interface CropEditorOptions extends CropViewOptions, IEditorOptions {
     maxSize?: number;
     mimeType?: string | string[];
     cropping?: boolean;
+    host?: string;
 }
 export declare class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
     model: AssetsModel;

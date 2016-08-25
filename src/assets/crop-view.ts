@@ -1,5 +1,6 @@
 
-import {CropView, AssetsModel, CropViewOptions, CropPreView, ICropping, AssetsClient, FileUploader} from 'assets.gallery';
+import {CropView, AssetsModel, CropViewOptions, CropPreView, 
+    ICropping, AssetsClient, FileUploader, createClient} from 'assets.gallery';
 import {BaseEditor, Form, validate, editor, IEditorOptions} from 'views.form';
 import {attributes} from 'views';
 import {Modal} from './modal';
@@ -22,7 +23,7 @@ export interface CropEditorOptions extends CropViewOptions, IEditorOptions {
     maxSize?: number;
     mimeType?: string | string[];
     cropping?: boolean;
-
+    host?: string;
 }
 
 
@@ -80,7 +81,12 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
         this.options = options || { client: null, resize: false };
 
         let client = options.client;
-        if (client == null) throw new Error('client expected');
+        if (client == null) {
+            if (options.host == null) throw new Error('client or host expected');
+            client = createClient({
+                url: options.host,
+            });
+        }
 
         this.modal = new Modal(this.options.client, {});
 
