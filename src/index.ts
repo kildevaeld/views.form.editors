@@ -1,3 +1,3 @@
 
-export * from './select2';
-export * from './assets';
+//export * from './select2';
+export * from './assets/index';

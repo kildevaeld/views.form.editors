@@ -1,2 +1,1 @@
-export * from './select2';
-export * from './assets';
+export * from './assets/index';
