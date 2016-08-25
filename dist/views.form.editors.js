@@ -138,7 +138,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            });
 	        }
 	        _this.modal = new modal_1.Modal(client, {});
-	        if (_this.options.cropping == true) {
+	        if (_this.options.cropping != null) {
 	            _this.crop = new assets_gallery_1.CropView({
 	                zoomable: false,
 	                scalable: false,
@@ -206,9 +206,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.crop.options.previewView = preview;
 	            }
 	            preview.render();
-	            var el = orange_1.Html.query(document.createElement('div')).addClass('upload-progress-container').css({ display: 'none' });
-	            el.html('<div class="upload-progress" style="width:0;"></div>');
-	            this.crop.el.appendChild(el.get(0));
+	            if (this.crop) {
+	                var el = orange_1.Html.query(document.createElement('div')).addClass('upload-progress-container').css({ display: 'none' });
+	                el.html('<div class="upload-progress" style="width:0;"></div>');
+	                this.crop.el.appendChild(el.get(0));
+	            } else {
+	                this.ui['crop'].appendChild(preview.el);
+	            }
 	        }
 	    }, {
 	        key: "clear",

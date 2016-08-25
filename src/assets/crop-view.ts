@@ -90,7 +90,7 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
 
         this.modal = new Modal(client, {});
 
-        if (this.options.cropping == true) {
+        if (this.options.cropping != null) {
             this.crop = new CropView({
                 zoomable: false,
                 scalable: false,
@@ -158,14 +158,18 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
         preview.render();
         
         
-
-        let el = Html.query(document.createElement('div'))
+        if (this.crop) {
+            let el = Html.query(document.createElement('div'))
             .addClass('upload-progress-container')
             .css({ display: 'none' });
-        el.html('<div class="upload-progress" style="width:0;"></div>');
+            el.html('<div class="upload-progress" style="width:0;"></div>');    
+            this.crop.el.appendChild(el.get(0));
+        } else {
+            this.ui['crop'].appendChild(preview.el);
+        }
+        
 
-        this.crop.el.appendChild(el.get(0));
-
+        
     }
 
     clear() {
