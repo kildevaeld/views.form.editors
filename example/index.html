@@ -2,14 +2,17 @@
 <html>
 
 <head>
+    <link href="../node_modules/select2/dist/css/select2.min.css" rel="stylesheet" />
     <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../node_modules/assets.gallery/dist/css/assets-gallery.css" rel="stylesheet" />
     <script src="../node_modules/babel-polyfill/dist/polyfill.js"></script>
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../node_modules/orange/dist/orange.js"></script>
+    <script src="../node_modules/select2/dist/js/select2.full.js"></script>
 
-    <script src="../node_modules/views/dist/views.min.js"></script>
+    <script src="../node_modules/eventsjs/dist/eventsjs.js"></script>
+    <script src="../node_modules/views/dist/views.js"></script>
     <script src="../node_modules/collection/dist/collection.js"></script>
     <script src="../node_modules/views.form/dist/views.form.min.js"></script>
     <script src="../node_modules/assets.gallery/dist/js/assets-gallery.js"></script>
@@ -108,6 +111,12 @@
             <label calss="field-label">Name</label>
             <input type="text" name="name" error="Du skal udfylde navn" required validate-max="10" />
         </div>
+
+        <div class="field" style="width:300px;">
+            <label calss="field-label">Select</label>
+            <select multiple tags placeholder="Pick" style="width:100%;" name="select" error="Du skal udfylde navn" required form-editor="select2">
+            </select>
+        </div>
        
         <div class="field" style="width:300px;">
             <label class="field-label">Image</label>
@@ -131,6 +140,11 @@
                         client: client,
                         maxSize: 2048
                     }
+                },
+                select: {
+                    editorOptions: {
+                        data: ['Hello', 'World']
+                    }
                 }
 
             }
@@ -141,7 +155,7 @@
         });
 
         form.render()
-        console.log(form)
+        
         var b = document.querySelector('#button');
         b.addEventListener('click', function() {
             let v = form.validate();
@@ -154,9 +168,9 @@
             console.log(form.model.toJSON());
         })
 
-        
+        var select = form.getFieldByName('select');
 
-        console.log(form)
+        select.value = "Hello, World";
     </script>
 </body>
 
