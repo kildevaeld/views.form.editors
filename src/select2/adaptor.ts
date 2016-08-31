@@ -1,6 +1,6 @@
 
 import {deferred, IPromise, find} from 'orange';
-import {Model, RestCollection, Collection, IModel} from 'collection';
+import {Model, RestCollection, Collection, IModel, isRestCollection} from 'collection';
 import {Select2} from './index';
 
 async function findInData(q: string, select: Select2): Promise<IModel[]> {
@@ -21,10 +21,9 @@ async function findInData(q: string, select: Select2): Promise<IModel[]> {
   });
 
   
-
-  if (select.data instanceof RestCollection) {
-    let rest = <RestCollection<IModel>>select.data;
-    let found = await rest.query(q);
+  let data = select.data;
+  if (isRestCollection(data)) {
+    let found = await data.query(q);
     if (found.length) out = found;
   }
 
@@ -72,7 +71,7 @@ export function customAdapter(select: Select2): IPromise<any> {
             found = (<any>data).find(val[i]);
             
             if (!found) {
-              if (data instanceof RestCollection) {
+              if (isRestCollection(data)) {
                 await data.fetch();
                 found = data.find(val[i]);
               }

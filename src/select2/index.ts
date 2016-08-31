@@ -2,7 +2,7 @@ import {customAdapter} from './adaptor'
 import {BaseEditor, IEditorOptions, editor} from 'views.form';
 import {attributes} from 'views';
 import * as utils from 'orange';
-import {ICollection, Collection, Model} from 'collection';
+import {ICollection, Collection, Model, isCollection} from 'collection';
 
 export interface Select2Options extends IEditorOptions {
 	multiple?: boolean;
@@ -134,7 +134,7 @@ export class Select2 extends BaseEditor<HTMLSelectElement, any> {
 		this.setValue(null);
 	}
 
-	_normalizeData(data) {
+	_normalizeData(data:any) {
 		if (data == null) return null;
 		if (Array.isArray(data)) {
 			return new Collection(data.map(m => {
@@ -144,7 +144,7 @@ export class Select2 extends BaseEditor<HTMLSelectElement, any> {
 				}
 				return m;
 			}));
-		} else if (data instanceof Collection) {
+		} else if (isCollection(data)) {
 			return data;
 		} else {
 			throw new Error('no data');

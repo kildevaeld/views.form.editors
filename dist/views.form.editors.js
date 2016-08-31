@@ -269,7 +269,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    if (typeof m === 'string') return _ref = {}, _defineProperty(_ref, _this4.options.idAttribute || 'id', m), _defineProperty(_ref, _this4.options.textAttribute || 'text', m), _ref;
 	                    return m;
 	                }));
-	            } else if (data instanceof collection_1.Collection) {
+	            } else if (collection_1.isCollection(data)) {
 	                return data;
 	            } else {
 	                throw new Error('no data');
@@ -424,7 +424,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var collection_1 = __webpack_require__(4);
 	function findInData(q, select) {
 	    return __awaiter(this, void 0, Promise, regeneratorRuntime.mark(function _callee() {
-	        var reg, out, rest, found;
+	        var reg, out, data, found;
 	        return regeneratorRuntime.wrap(function _callee$(_context) {
 	            while (1) {
 	                switch (_context.prev = _context.next) {
@@ -441,15 +441,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            }
 	                            return false;
 	                        });
+	                        data = select.data;
 
-	                        if (!(select.data instanceof collection_1.RestCollection)) {
+	                        if (!collection_1.isRestCollection(data)) {
 	                            _context.next = 8;
 	                            break;
 	                        }
 
-	                        rest = select.data;
 	                        _context.next = 6;
-	                        return rest.query(q);
+	                        return data.query(q);
 
 	                    case 6:
 	                        found = _context.sent;
@@ -549,7 +549,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                                                break;
 	                                                            }
 
-	                                                            if (!(data instanceof collection_1.RestCollection)) {
+	                                                            if (!collection_1.isRestCollection(data)) {
 	                                                                _context2.next = 9;
 	                                                                break;
 	                                                            }
