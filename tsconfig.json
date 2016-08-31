@@ -20,6 +20,8 @@
 
         "src/assets/index.ts",
         "src/assets/modal.ts",
-        "src/assets/crop-view.ts"
+        "src/assets/crop-view.ts",
+
+        "src/datetime/index.ts"
     ]
 }

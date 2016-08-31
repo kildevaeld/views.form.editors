@@ -5,12 +5,15 @@
     <link href="../node_modules/select2/dist/css/select2.min.css" rel="stylesheet" />
     <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../node_modules/assets.gallery/dist/css/assets-gallery.css" rel="stylesheet" />
+    <link href="../node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    
     <script src="../node_modules/babel-polyfill/dist/polyfill.js"></script>
+    <script src="../node_modules/moment/min/moment-with-locales.min.js"></script>
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../node_modules/orange/dist/orange.js"></script>
     <script src="../node_modules/select2/dist/js/select2.full.js"></script>
-
+    <script src="../node_modules/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <script src="../node_modules/eventsjs/dist/eventsjs.js"></script>
     <script src="../node_modules/views/dist/views.js"></script>
     <script src="../node_modules/collection/dist/collection.js"></script>
@@ -114,7 +117,7 @@
 
         <div class="field" style="width:300px;">
             <label calss="field-label">Select</label>
-            <select multiple tags placeholder="Pick" style="width:100%;" name="select" error="Du skal udfylde navn" required form-editor="select2">
+            <select multiple tags placeholder="Pick" style="width:100%;" max="2" name="select" error="Du skal udfylde navn" required form-editor="select2">
             </select>
         </div>
        
@@ -122,9 +125,14 @@
             <label class="field-label">Image</label>
             <div name="image" form-editor="assets.crop" host="http://localhost:5000" cropping required validate-required="true"></div>
         </div>
+        <div class="field form-field" style="width:300px;position:relative;">
+            <label class="field-label">Date</label>
+            <input class="form-control" type="text" name="date" form-editor="datetime" required use-current locale="da" />
+        </div>
 
     </form>
     <button id="button">ok</button>
+     <button id="clear">clear</button>
     <script>
         var client = Assets.createClient({
             url: 'http://localhost:5000'
@@ -143,7 +151,7 @@
                 },
                 select: {
                     editorOptions: {
-                        data: ['Hello', 'World']
+                        data: ['Hello', 'World', 'Brad', 'Thom']
                     }
                 }
 
@@ -161,6 +169,11 @@
             let v = form.validate();
             console.log(form.model)
         });
+
+        b = document.querySelector('#clear');
+        b.addEventListener('click', function () {
+            form.clear();
+        })
 
         //form.model.set('url', 'http://localhost');
 

@@ -53,12 +53,15 @@ export class Select2 extends BaseEditor<HTMLSelectElement, any> {
 			return;
 		}
 
-
 		let $el = $(this.el);
 		let curVal = $el.val();
 
-		if (value == null) return $el.val(null);
-
+		if (value == null)  {
+			$el.val(null);
+			$el.trigger('change.select2');
+			return;
+		}
+		
 		if (!Array.isArray(value)) value = [<any>value]
 
 		let ids = value.map(m => {
@@ -157,6 +160,7 @@ export class Select2 extends BaseEditor<HTMLSelectElement, any> {
 		this._get_options(this.options)
 			.then(options => {
 				this.options = options;
+				
 				$(this.el).select2(options);
 				$(this.el).on('change', () => {
 					this.trigger('change');
@@ -178,8 +182,14 @@ export class Select2 extends BaseEditor<HTMLSelectElement, any> {
 				let has: any = this.el.getAttribute(s);
 				if (has == "") has = true;
 				else if (has == null) return;
-				if (s == 'min') s = 'minimumInputLength';
-				if (s == 'max') s = 'maximumSelectionLength';
+				if (s == 'min') {
+					s = 'minimumInputLength';
+					has = parseInt(has);
+				}
+				if (s == 'max') {
+					s = 'maximumSelectionLength';
+					has = parseInt(has);
+				}
 				if (s == 'text-param') s = 'textAttribute';
 				if (s == 'id-param') s = 'idAttribute';
 				opt[s] = has;

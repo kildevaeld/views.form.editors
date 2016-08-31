@@ -1,6 +1,4 @@
 
-import 'select2';
-import * as $ from 'jquery';
 import {deferred, IPromise, find} from 'orange';
 import {Model, RestCollection, Collection, IModel} from 'collection';
 import {Select2} from './index';
@@ -12,17 +10,17 @@ async function findInData(q: string, select: Select2): Promise<IModel[]> {
     if (e instanceof Model) {
       e = e.toJSON();
     }
-
-    if (e[select.textAttribute] && e[select.textAttribute].match(reg)) {
+    
+    if (e[select.options.textAttribute] && e[select.options.textAttribute].match(reg)) {
       return true;
-    } else if (e[select.idAttribute] && String(e[select.idAttribute]).match(reg)) {
+    } else if (e[select.options.idAttribute] && String(e[select.options.idAttribute]).match(reg)) {
       return true;
     }
 
     return false
   });
 
-
+  
 
   if (select.data instanceof RestCollection) {
     let rest = <RestCollection<IModel>>select.data;
@@ -105,9 +103,9 @@ export function customAdapter(select: Select2): IPromise<any> {
           
           return done(results);
         }
-
+        
         findInData(params.term, select).then( found => {
-        	results.results = found;
+        	results.results = found.map( m => m.toJSON());
         	done(results);
         }).catch( e => { throw e; });
 

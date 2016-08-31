@@ -23,7 +23,7 @@ export declare class Select2 extends BaseEditor<HTMLSelectElement, any> {
     constructor(options?: Select2Options);
     data: ICollection;
     onCollection(collection: ICollection): void;
-    setValue(value: any): JQuery;
+    setValue(value: any): void;
     getValue(): any;
     clear(): void;
     _normalizeData(data: any): any;
