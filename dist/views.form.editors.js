@@ -193,7 +193,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                if (typeof m === 'string') {
 	                    if (m === "") return null;
 	                    return m;
-	                } else if (m instanceof collection_1.Model) {
+	                } else if (collection_1.isModel(m)) {
 	                    return String(m.id);
 	                } else if (utils.isObject(m)) {
 	                    return String(m[_this2.options.idAttribute]);
@@ -216,11 +216,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    id = e;
 	                    text = e;
 	                } else if (collection_1.isModel(e)) {
-	                    id = e.get(_this2.idAttribute);
-	                    text = e.get(_this2.textAttribute);
-	                } else if (utils.isObject(value)) {
-	                    id = String(e[_this2.idAttribute]);
-	                    text = e[_this2.textAttribute];
+	                    id = e.get(_this2.options.idAttribute);
+	                    text = e.get(_this2.options.textAttribute);
+	                } else if (utils.isObject(e)) {
+	                    id = String(e[_this2.options.idAttribute]);
+	                    text = e[_this2.options.textAttribute];
 	                }
 	                $el.append("<option value=\"" + id + "\">" + text + "</option>");
 	            });

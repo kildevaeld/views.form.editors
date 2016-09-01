@@ -69,7 +69,7 @@ export class Select2 extends BaseEditor<HTMLSelectElement, any> {
 			if (typeof m === 'string') {
 				if (<any>m === "") return null;
 				return m;
-			} else if (m instanceof Model) {
+			} else if (isModel(m)) {
 				return String(m.id);
 			} else if (utils.isObject(m)) {
 				return String(m[this.options.idAttribute]);
@@ -94,11 +94,11 @@ export class Select2 extends BaseEditor<HTMLSelectElement, any> {
 				id = e;
 				text = e;
 			} else if (isModel(e)) {
-				id = e.get(this.idAttribute);
-				text = e.get(this.textAttribute);
-			} else if (utils.isObject(value)) {
-				id = String(e[this.idAttribute]);
-				text = e[this.textAttribute];
+				id = e.get(this.options.idAttribute);
+				text = e.get(this.options.textAttribute);
+			} else if (utils.isObject(e)) {
+				id = String(e[this.options.idAttribute]);
+				text = e[this.options.textAttribute];
 			}
 			$el.append(`<option value="${id}">${text}</option>`);
 		});
