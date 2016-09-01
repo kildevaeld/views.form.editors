@@ -215,7 +215,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                if (typeof e === 'string') {
 	                    id = e;
 	                    text = e;
-	                } else if (e instanceof collection_1.Model) {
+	                } else if (collection_1.isModel(e)) {
 	                    id = e.get(_this2.idAttribute);
 	                    text = e.get(_this2.textAttribute);
 	                } else if (utils.isObject(value)) {

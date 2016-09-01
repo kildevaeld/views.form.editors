@@ -2,7 +2,7 @@ import {customAdapter} from './adaptor'
 import {BaseEditor, IEditorOptions, editor} from 'views.form';
 import {attributes} from 'views';
 import * as utils from 'orange';
-import {ICollection, Collection, Model, isCollection} from 'collection';
+import {ICollection, Collection, Model, isCollection, isModel} from 'collection';
 
 export interface Select2Options extends IEditorOptions {
 	multiple?: boolean;
@@ -93,7 +93,7 @@ export class Select2 extends BaseEditor<HTMLSelectElement, any> {
 			if (typeof e === 'string') {
 				id = e;
 				text = e;
-			} else if (e instanceof Model) {
+			} else if (isModel(e)) {
 				id = e.get(this.idAttribute);
 				text = e.get(this.textAttribute);
 			} else if (utils.isObject(value)) {
