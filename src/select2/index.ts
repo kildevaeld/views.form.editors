@@ -192,6 +192,7 @@ export class Select2 extends BaseEditor<HTMLSelectElement, any> {
 				}
 				if (s == 'text-param') s = 'textAttribute';
 				if (s == 'id-param') s = 'idAttribute';
+				if (s == 'allow-clear') s = 'allowClear';
 				opt[s] = has;
 			});
 

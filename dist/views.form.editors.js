@@ -331,6 +331,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    }
 	                                    if (s == 'text-param') s = 'textAttribute';
 	                                    if (s == 'id-param') s = 'idAttribute';
+	                                    if (s == 'allow-clear') s = 'allowClear';
 	                                    opt[s] = has;
 	                                });
 	                                if (!opt.idAttribute) opt.idAttribute = 'id';
@@ -502,17 +503,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    case 0:
 	                                        val = $(select.el).val();
 
+	                                        console.log('VAL', val);
+
 	                                        if (!(val == null || select.data == null)) {
-	                                            _context3.next = 3;
+	                                            _context3.next = 4;
 	                                            break;
 	                                        }
 
 	                                        return _context3.abrupt('return', cb([]));
 
-	                                    case 3:
+	                                    case 4:
 	                                        out = [];
-	                                        //if (!select.options.multiple) val = [val];
 
+	                                        if (!select.options.multiple) val = [val];
 	                                        _loop = regeneratorRuntime.mark(function _loop(i, ii) {
 	                                            var found, data;
 	                                            return regeneratorRuntime.wrap(function _loop$(_context2) {
@@ -572,26 +575,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                        });
 	                                        i = 0, ii = val.length;
 
-	                                    case 6:
+	                                    case 8:
 	                                        if (!(i < ii)) {
-	                                            _context3.next = 11;
+	                                            _context3.next = 13;
 	                                            break;
 	                                        }
 
-	                                        return _context3.delegateYield(_loop(i, ii), 't0', 8);
+	                                        return _context3.delegateYield(_loop(i, ii), 't0', 10);
 
-	                                    case 8:
+	                                    case 10:
 	                                        i++;
-	                                        _context3.next = 6;
+	                                        _context3.next = 8;
 	                                        break;
 
-	                                    case 11:
+	                                    case 13:
 	                                        this.found = out;
+	                                        console.log(out, val);
 	                                        cb(out.map(function (m) {
 	                                            return m.toJSON();
 	                                        }));
 
-	                                    case 13:
+	                                    case 16:
 	                                    case 'end':
 	                                        return _context3.stop();
 	                                }

@@ -120,6 +120,11 @@
             <select multiple tags placeholder="Pick" style="width:100%;" max="2" name="select" error="Du skal udfylde navn" required form-editor="select2">
             </select>
         </div>
+        <div class="field" style="width:300px;">
+            <label calss="field-label">Select</label>
+            <select allow-clear placeholder="Pick" style="width:100%;" max="2" name="select2" error="Du skal udfylde navn" required form-editor="select2">
+            </select>
+        </div>
        
         <div class="field" style="width:300px;">
             <label class="field-label">Image</label>
@@ -152,6 +157,11 @@
                 select: {
                     editorOptions: {
                         data: ['Hello', 'World', 'Brad', 'Thom']
+                    }
+                },
+                select2: {
+                    editorOptions: {
+                        data: ['Hello', 'World', 'Michael', 'Thomas']
                     }
                 }
 

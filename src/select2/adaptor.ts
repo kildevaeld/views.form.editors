@@ -43,10 +43,11 @@ export function customAdapter(select: Select2): IPromise<any> {
       async current(cb) {
         
         let val = $(select.el).val();
+        console.log('VAL', val);
         if (val == null || select.data == null) return cb([]);
 
         let out = [];
-        //if (!select.options.multiple) val = [val];
+        if (!select.options.multiple) val = [val];
         for (let i = 0, ii = val.length; i < ii; i++) {
 
           let found = find(this.found, (item) => {
@@ -83,7 +84,7 @@ export function customAdapter(select: Select2): IPromise<any> {
         }
         
         this.found = out;
-        
+        console.log(out, val);
         cb(out.map(m => m.toJSON()));
       }
 
