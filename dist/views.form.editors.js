@@ -590,12 +590,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                                    case 13:
 	                                        this.found = out;
-	                                        console.log(out, val);
 	                                        cb(out.map(function (m) {
 	                                            return m.toJSON();
 	                                        }));
 
-	                                    case 16:
+	                                    case 15:
 	                                    case 'end':
 	                                        return _context3.stop();
 	                                }

@@ -84,7 +84,7 @@ export function customAdapter(select: Select2): IPromise<any> {
         }
         
         this.found = out;
-        console.log(out, val);
+        
         cb(out.map(m => m.toJSON()));
       }
 
