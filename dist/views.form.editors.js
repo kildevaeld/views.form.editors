@@ -959,7 +959,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function onAssetSelected() {
 	            var value = this.modal.value;
 	            this.model = value;
-	            this.crop.ui['image'].src = value.getURL();
+	            //(<HTMLImageElement>this.crop.ui['image']).src = value.getURL();
 	            this.trigger('change');
 	        }
 	        /*validate(form: Form) {

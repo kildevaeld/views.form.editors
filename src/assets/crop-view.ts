@@ -314,7 +314,7 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
     private onAssetSelected() {
         let value = this.modal.value;
         this.model = value;
-        (<HTMLImageElement>this.crop.ui['image']).src = value.getURL();
+        //(<HTMLImageElement>this.crop.ui['image']).src = value.getURL();
         this.trigger('change');
     }
 
