@@ -1,5 +1,5 @@
 
-import {CropView, AssetsModel, CropViewOptions, CropPreView, 
+import {CropView, AssetsModel, CropViewOptions, CropPreView,
     ICropping, AssetsClient, FileUploader, createClient} from 'assets.gallery';
 import {BaseEditor, Form, validate, editor, IEditorOptions} from 'views.form';
 import {attributes} from 'views';
@@ -64,12 +64,12 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
         this.model = model;
     }
 
-    constructor(options: CropEditorOptions = {resize: false}) {
+    constructor(options: CropEditorOptions = { resize: false }) {
         super(options);
 
-       this.options = options = this._getOptions(extend({}, options));
+        this.options = options = this._getOptions(extend({}, options));
 
-       
+
         let client = options.client;
         if (client == null) {
             if (options.host == null) throw new Error('client or host expected');
@@ -87,7 +87,7 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
                 autoCropArea: 0.6,
                 resize: true,
             }, omit(this.options, ['el']));
-            console.log('o',o);
+
             this.crop = new CropView(o);
         }
 
@@ -106,7 +106,12 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
     }
 
     onModel(model: AssetsModel) {
-        if (this.crop) this.crop.model = model;
+        if (model) this._removeDropIndicator();
+        if (this.crop) {
+            this._toggled = false;
+            Html.query('.crop-btn').removeClass('active');
+            this.crop.model = model;
+        }
 
     }
 
@@ -115,24 +120,24 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
         this.options = this._getOptions(this.options);
     }
 
-    private _getOptions(options:CropEditorOptions): CropEditorOptions {
+    private _getOptions(options: CropEditorOptions): CropEditorOptions {
         ['host', 'maxSize', 'mimeType', 'ratio', 'cropping']
             .forEach(m => {
                 let l = m.toLowerCase();
-                let attr = this.el.getAttribute(l) || this.el.getAttribute('o-' + l);
-                if (!attr || attr == "") {
+                let attr: any = this.el.getAttribute(l) // || this.el.getAttribute('o-' + l);
+                if (attr == null) {
                     return;
-                }
+                } else if (attr == "") attr = true;
                 if (m == 'ratio') {
                     m = 'aspectRatio'
-                    attr = <any>parseFloat(attr)
+                    attr = parseFloat(attr)
                 } else if (m == 'maxSize') {
-                    attr = <any>parseInt(attr);
+                    attr = parseInt(attr);
                 }
                 options[m] = attr;
             });
         return options;
-    } 
+    }
 
     onRender() {
 
@@ -163,24 +168,51 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
         }
 
         preview.render();
-        
-        
+
+
         if (this.crop) {
             let el = Html.query(document.createElement('div'))
-            .addClass('upload-progress-container')
-            .css({ display: 'none' });
-            el.html('<div class="upload-progress" style="width:0;"></div>');    
+                .addClass('upload-progress-container')
+                .css({ display: 'none' });
+            el.html('<div class="upload-progress" style="width:0;"></div>');
             this.crop.el.appendChild(el.get(0));
         } else {
             this.ui['crop'].appendChild(preview.el);
         }
-        
 
-        
+        this._showDropIndicator();
+
     }
 
     clear() {
         this.model = null;
+        this._showDropIndicator();
+    }
+
+    private _showDropIndicator() {
+        let preview = this.el.querySelector('.crop-preview');
+        if (!preview) return;
+        let i = preview.querySelector('.drop-indicator');
+        if (i) return;
+        i = document.createElement('div');
+        let $i = Html.query(<any>i);
+        $i.addClass('drop-indicator')
+            .css({
+                position: 'absolute',
+                top: '50%',
+                transform: 'translate(-50%, -50%)',
+                left: '50%'
+            })
+        $i.text('Drop Here');
+        
+
+        preview.appendChild(i);
+
+    }
+
+    private _removeDropIndicator() {
+        let i = this.el.querySelector('.drop-indicator')
+        if (i && i.parentElement) i.parentElement.removeChild(i);
     }
 
     private _onToggleCropper(e: MouseEvent) {

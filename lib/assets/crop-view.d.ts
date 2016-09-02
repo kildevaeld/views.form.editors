@@ -23,6 +23,8 @@ export declare class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> 
     private _getOptions(options);
     onRender(): void;
     clear(): void;
+    private _showDropIndicator();
+    private _removeDropIndicator();
     private _onToggleCropper(e);
     private _onDrop(e);
     private _cancel(e);
