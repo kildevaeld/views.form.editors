@@ -20,6 +20,7 @@ export declare class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> 
     constructor(options?: CropEditorOptions);
     onModel(model: AssetsModel): void;
     onSetElement(): void;
+    private _getOptions(options);
     onRender(): void;
     clear(): void;
     private _onToggleCropper(e);

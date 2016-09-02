@@ -503,16 +503,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    case 0:
 	                                        val = $(select.el).val();
 
-	                                        console.log('VAL', val);
-
 	                                        if (!(val == null || select.data == null)) {
-	                                            _context3.next = 4;
+	                                            _context3.next = 3;
 	                                            break;
 	                                        }
 
 	                                        return _context3.abrupt('return', cb([]));
 
-	                                    case 4:
+	                                    case 3:
 	                                        out = [];
 
 	                                        if (!select.options.multiple) val = [val];
@@ -575,26 +573,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                        });
 	                                        i = 0, ii = val.length;
 
-	                                    case 8:
+	                                    case 7:
 	                                        if (!(i < ii)) {
-	                                            _context3.next = 13;
+	                                            _context3.next = 12;
 	                                            break;
 	                                        }
 
-	                                        return _context3.delegateYield(_loop(i, ii), 't0', 10);
+	                                        return _context3.delegateYield(_loop(i, ii), 't0', 9);
 
-	                                    case 10:
+	                                    case 9:
 	                                        i++;
-	                                        _context3.next = 8;
+	                                        _context3.next = 7;
 	                                        break;
 
-	                                    case 13:
+	                                    case 12:
 	                                        this.found = out;
 	                                        cb(out.map(function (m) {
 	                                            return m.toJSON();
 	                                        }));
 
-	                                    case 15:
+	                                    case 14:
 	                                    case 'end':
 	                                        return _context3.stop();
 	                                }
@@ -736,16 +734,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        var _this = _possibleConstructorReturn(this, (CropEditor.__proto__ || Object.getPrototypeOf(CropEditor)).call(this, options));
 
-	        ['host', 'maxSize', 'mimeType', 'ratio', 'cropping'].forEach(function (m) {
-	            var l = m.toLowerCase();
-	            var attr = _this.el.getAttribute(l); //||this.el.getAttribute('o-' + l);
-	            if (attr == null) attr = _this.el.getAttribute('o-' + l);
-	            if (attr != null) {
-	                if (attr == "") attr = true;
-	                options[m] = attr;
-	            }
-	        });
-	        _this.options = options || { client: null, resize: false };
+	        _this.options = options = _this._getOptions(orange_1.extend({}, options));
 	        var client = options.client;
 	        if (client == null) {
 	            if (options.host == null) throw new Error('client or host expected');
@@ -755,12 +744,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	        _this.modal = new modal_1.Modal(client, {});
 	        if (_this.options.cropping != null) {
-	            _this.crop = new assets_gallery_1.CropView({
+	            var o = orange_1.extend({
 	                zoomable: false,
 	                scalable: false,
 	                autoCropArea: 0.6,
 	                resize: true
-	            });
+	            }, orange_1.omit(_this.options, ['el']));
+	            console.log('o', o);
+	            _this.crop = new assets_gallery_1.CropView(o);
 	        }
 	        _this.uploader = new assets_gallery_1.FileUploader({
 	            url: client.url,
@@ -791,15 +782,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: "onSetElement",
 	        value: function onSetElement() {
+	            this.options = this._getOptions(this.options);
+	        }
+	    }, {
+	        key: "_getOptions",
+	        value: function _getOptions(options) {
 	            var _this2 = this;
 
-	            ['host', 'maxSize', 'mimeType', 'ratio'].forEach(function (m) {
+	            ['host', 'maxSize', 'mimeType', 'ratio', 'cropping'].forEach(function (m) {
 	                var l = m.toLowerCase();
 	                var attr = _this2.el.getAttribute(l) || _this2.el.getAttribute('o-' + l);
-	                if (attr && attr != "") {
-	                    _this2.options[m] = attr;
+	                if (!attr || attr == "") {
+	                    return;
 	                }
+	                if (m == 'ratio') {
+	                    m = 'aspectRatio';
+	                    attr = parseFloat(attr);
+	                } else if (m == 'maxSize') {
+	                    attr = parseInt(attr);
+	                }
+	                options[m] = attr;
 	            });
+	            return options;
 	        }
 	    }, {
 	        key: "onRender",
@@ -817,15 +821,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	                el: this.crop ? this.crop.el : null
 	            });
 	            if (!this.crop) {
-	                preview.el.innerHTML = '<img class="content">';
+	                preview.el.innerHTML = '<img class="content" />';
+	                orange_1.addClass(preview.el, 'crop-preview cropping-preview');
+	                var el = this.el.querySelector('.crop-btn');
+	                el.parentElement.removeChild(el);
 	            } else {
 	                this.crop.options.previewView = preview;
 	            }
 	            preview.render();
 	            if (this.crop) {
-	                var el = orange_1.Html.query(document.createElement('div')).addClass('upload-progress-container').css({ display: 'none' });
-	                el.html('<div class="upload-progress" style="width:0;"></div>');
-	                this.crop.el.appendChild(el.get(0));
+	                var _el = orange_1.Html.query(document.createElement('div')).addClass('upload-progress-container').css({ display: 'none' });
+	                _el.html('<div class="upload-progress" style="width:0;"></div>');
+	                this.crop.el.appendChild(_el.get(0));
 	            } else {
 	                this.ui['crop'].appendChild(preview.el);
 	            }
@@ -6293,6 +6300,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    setModel(model) {
 	        if (this.ui['image'] == null)
 	            return this;
+	        this.deactivate();
 	        let image = this.ui['image'];
 	        if (model == null) {
 	            image.src = emptyImage;
@@ -6303,9 +6311,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	        image.src = model.getURL();
 	        super.setModel(model);
-	        if (this.options.aspectRatio != null) {
+	        let cropping = model.get('meta.cropping');
+	        if (cropping) {
+	            this._cropping = cropping;
+	            this.triggerMethod('crop', cropping);
+	        }
+	        else if (this.options.aspectRatio != null) {
 	            utils_1.getImageSize(image).then(size => {
 	                this._cropping = utils_1.getCropping(size, this.options.aspectRatio);
+	                this.triggerMethod('crop', cropping);
 	            }).catch(e => {
 	                this.trigger('error', e);
 	            });
@@ -6320,9 +6334,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        let opts = {
 	            crop: e => {
 	                this._cropping = e.detail;
-	                if (this.options.previewView) {
-	                    this.options.previewView.cropping = this._cropping;
-	                }
 	                this.triggerMethod('crop', e.detail);
 	                if (isFunction(o.crop))
 	                    o.crop(e);
@@ -6364,6 +6375,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return this._cropper != null ? this.deactivate() : this.activate();
 	    }
 	    onCrop(cropping) {
+	        if (this.options.previewView) {
+	            this.options.previewView.cropping = cropping;
+	        }
 	    }
 	    render() {
 	        this.triggerMethod('before:render');

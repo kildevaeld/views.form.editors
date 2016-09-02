@@ -4,7 +4,7 @@ import {CropView, AssetsModel, CropViewOptions, CropPreView,
 import {BaseEditor, Form, validate, editor, IEditorOptions} from 'views.form';
 import {attributes} from 'views';
 import {Modal} from './modal';
-import {addClass, removeClass, Html} from 'orange';
+import {addClass, removeClass, Html, extend, omit} from 'orange';
 
 const template = `
   <div class="modal-container"></div>
@@ -67,19 +67,9 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
     constructor(options: CropEditorOptions = {resize: false}) {
         super(options);
 
-        ['host', 'maxSize', 'mimeType', 'ratio', 'cropping']
-            .forEach(m => {
-                let l = m.toLowerCase();
-                let attr = this.el.getAttribute(l) //||this.el.getAttribute('o-' + l);
-                if (attr == null) attr = this.el.getAttribute('o-' + l);
-                if (attr != null) {
-                    if (attr == "") attr = <any>true;
-                    options[m] = attr;
-                }
-            });
+       this.options = options = this._getOptions(extend({}, options));
 
-        this.options = options || { client: null, resize: false };
-
+       
         let client = options.client;
         if (client == null) {
             if (options.host == null) throw new Error('client or host expected');
@@ -91,12 +81,14 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
         this.modal = new Modal(client, {});
 
         if (this.options.cropping != null) {
-            this.crop = new CropView({
+            let o = extend({
                 zoomable: false,
                 scalable: false,
                 autoCropArea: 0.6,
-                resize: true
-            });
+                resize: true,
+            }, omit(this.options, ['el']));
+            console.log('o',o);
+            this.crop = new CropView(o);
         }
 
 
@@ -120,15 +112,27 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
 
     onSetElement() {
 
-        ['host', 'maxSize', 'mimeType', 'ratio']
+        this.options = this._getOptions(this.options);
+    }
+
+    private _getOptions(options:CropEditorOptions): CropEditorOptions {
+        ['host', 'maxSize', 'mimeType', 'ratio', 'cropping']
             .forEach(m => {
                 let l = m.toLowerCase();
                 let attr = this.el.getAttribute(l) || this.el.getAttribute('o-' + l);
-                if (attr && attr != "") {
-                    this.options[m] = attr;
+                if (!attr || attr == "") {
+                    return;
                 }
+                if (m == 'ratio') {
+                    m = 'aspectRatio'
+                    attr = <any>parseFloat(attr)
+                } else if (m == 'maxSize') {
+                    attr = <any>parseInt(attr);
+                }
+                options[m] = attr;
             });
-    }
+        return options;
+    } 
 
     onRender() {
 
@@ -150,7 +154,10 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
         });
 
         if (!this.crop) {
-            preview.el.innerHTML = '<img class="content">';
+            preview.el.innerHTML = '<img class="content" />';
+            addClass(preview.el, 'crop-preview cropping-preview')
+            let el = this.el.querySelector('.crop-btn')
+            el.parentElement.removeChild(el);
         } else {
             this.crop.options.previewView = preview;
         }

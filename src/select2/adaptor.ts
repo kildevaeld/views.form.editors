@@ -43,7 +43,7 @@ export function customAdapter(select: Select2): IPromise<any> {
       async current(cb) {
         
         let val = $(select.el).val();
-        console.log('VAL', val);
+        
         if (val == null || select.data == null) return cb([]);
 
         let out = [];
