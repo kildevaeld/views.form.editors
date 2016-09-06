@@ -4,8 +4,8 @@ import {CropView, AssetsModel, CropViewOptions, CropPreView,
 import {BaseEditor, Form, validate, editor, IEditorOptions} from 'views.form';
 import {attributes} from 'views';
 import {Modal} from './modal';
-import {addClass, removeClass, Html, extend, omit} from 'orange';
-
+import {addClass, removeClass, Html} from 'orange.dom';
+import {omit, extend} from 'orange';
 const template = `
   <div class="modal-container"></div>
   <div class="crop-container">

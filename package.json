@@ -1,6 +1,6 @@
 {
   "name": "views.form.editors",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -28,6 +28,7 @@
     "select2": "^4.0.3",
     "eonasdan-bootstrap-datetimepicker": "git+https://github.com/Eonasdan/bootstrap-datetimepicker",
     "orange": "git+https://github.com/kildevaeld/orange.git",
+    "orange.dom": "git+https://github.com/kildevaeld/orange.dom.git",
     "collection": "git+https://github.com/kildevaeld/collectionjs.git",
     "views": "git+https://github.com/kildevaeld/views.git",
     "views.form": "git+https://github.com/kildevaeld/views.form.git",
@@ -39,6 +40,7 @@
     "registry": "github",
     "dependencies": {
       "orange": "github:kildevaeld/orange@master",
+      "orange.dom": "github:kildevaeld/orange.dom@master",
       "collection": "github:kildevaeld/collectionjs@master",
       "views": "github:kildevaeld/views@master",
       "views.form": "github:kildevaeld/views.form@master",
