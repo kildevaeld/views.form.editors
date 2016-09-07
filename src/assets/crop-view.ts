@@ -77,6 +77,7 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
                 url: options.host,
             });
         }
+        
 
         this.modal = new Modal(client, {});
 
