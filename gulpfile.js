@@ -51,8 +51,14 @@ gulp.task('bundle', ['typescript'], () => {
                 root: ['views', 'form'],
                 amd: 'views.form',
                 commonjs2: 'views.form'
-            }
-            //'stick/lib/template': 'stick' 
+            },
+            "torsten.views": {
+                commonjs: 'torsten.views',
+                root: ['torsten', 'views'],
+                amd: 'torsten.views',
+                commonjs2: 'torsten.views'
+            },
+            "torsten": "torsten"
         },
         module: {
             loaders: [

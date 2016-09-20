@@ -1,7 +1,12 @@
 declare var $:any;
 
 import {View, attributes} from 'views';
-import {GalleryView, AssetsClient, AssetsModel} from 'assets.gallery';
+import {GalleryView, FileInfoModel, GalleryViewOptions} from 'torsten.views';
+import {IClient} from 'torsten';
+
+export interface ModalViewOptions extends GalleryViewOptions {
+
+}
 
 const TEMPLATE = `
     <div class="modal-dialog modal-lg">
@@ -36,13 +41,13 @@ export class Modal extends View<HTMLDivElement> {
     return this._gallery;
   }
   
-  set value (asset:AssetsModel) { this._gallery.selected = asset; }
-  get value (): AssetsModel { return this._gallery.selected; }
+  set value (asset:FileInfoModel) { this._gallery.selected = asset; }
+  get value (): FileInfoModel { return this._gallery.selected; }
   
-  constructor(public client:AssetsClient, options:any) {
+  constructor(options:ModalViewOptions) {
     super();
     
-    this._gallery = new GalleryView(client, options);
+    this._gallery = new GalleryView(options);
 
     this.listenTo(this._gallery, 'dblclick', () => {
       if (this._gallery.selected !== null) {
@@ -69,7 +74,8 @@ export class Modal extends View<HTMLDivElement> {
     this.gallery.selected = null;
     $(this.el).modal('show');
     $(this.el).one('shown.bs.modal', () => {
-      this.gallery.collection.fetch();
+      //this.gallery.collection.fetch();
+      this.gallery.root = "/";
     })
     this._isOpen = true;
   }

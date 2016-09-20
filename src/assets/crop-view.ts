@@ -1,11 +1,16 @@
 
-import {CropView, AssetsModel, CropViewOptions, CropPreView,
-    ICropping, AssetsClient, FileUploader, createClient} from 'assets.gallery';
+/*import {CropView, AssetsModel, CropViewOptions, CropPreView,
+    ICropping, AssetsClient, FileUploader, createClient} from 'assets.gallery';*/
+
+import {IClient} from 'torsten';
+import {CropViewOptions, FileInfoModel, CropView, 
+    createClient, CropPreView} from 'torsten.views';
 import {BaseEditor, Form, validate, editor, IEditorOptions} from 'views.form';
 import {attributes} from 'views';
 import {Modal} from './modal';
 import {addClass, removeClass, Html} from 'orange.dom';
 import {omit, extend} from 'orange';
+
 const template = `
   <div class="modal-container"></div>
   <div class="crop-container">
@@ -19,7 +24,7 @@ const template = `
 `;
 
 export interface CropEditorOptions extends CropViewOptions, IEditorOptions {
-    client?: AssetsClient;
+    client?: IClient;
     maxSize?: number;
     mimeType?: string | string[];
     cropping?: boolean;
@@ -48,18 +53,18 @@ export interface CropEditorOptions extends CropViewOptions, IEditorOptions {
     },
 })
 @editor('assets.crop')
-export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
-    model: AssetsModel;
+export class CropEditor extends BaseEditor<HTMLDivElement, FileInfoModel> {
+    model: FileInfoModel;
     modal: Modal;
     crop: CropView
-    uploader: FileUploader;
+    //uploader: FileUploader;
     options: CropEditorOptions
     _toggled: boolean;
-    getValue(): AssetsModel {
+    getValue(): FileInfoModel {
         return this.model;
     }
 
-    setValue(model: AssetsModel) {
+    setValue(model: FileInfoModel) {
         if (this.model === model) return;
         this.model = model;
     }
@@ -72,14 +77,20 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
 
         let client = options.client;
         if (client == null) {
-            if (options.host == null) throw new Error('client or host expected');
+            /*if (options.host == null) throw new Error('client or host expected');
             client = createClient({
-                url: options.host,
-            });
+                endpoint: options.host,
+            });*/
+            throw new Error("no client");
         }
+
+        console.log(client)
         
 
-        this.modal = new Modal(client, {});
+        this.modal = new Modal({
+            client: client,
+            showDirectories: false
+        });
 
         if (this.options.cropping != null) {
             let o = extend({
@@ -93,11 +104,11 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
         }
 
 
-        this.uploader = new FileUploader({
+        /*this.uploader = new FileUploader({
             url: client.url,
             maxSize: this.options.maxSize,
             mimeType: this.options.mimeType
-        });
+        });*/
 
         this.listenTo(this.modal, 'selected', this.onAssetSelected);
 
@@ -106,7 +117,7 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
 
     }
 
-    onModel(model: AssetsModel) {
+    onModel(model: FileInfoModel) {
         if (model) this._removeDropIndicator();
         if (this.crop) {
             this._toggled = false;
@@ -117,7 +128,6 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
     }
 
     onSetElement() {
-
         this.options = this._getOptions(this.options);
     }
 
@@ -248,8 +258,8 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
         }
 
         let div = <HTMLElement>this.crop.el.querySelector('.upload-progress')
-
-        this.uploader.upload(file, (loaded, total) => {
+        console.log('upload file', file);
+        /*this.uploader.upload(file, (loaded, total) => {
             let progress = (loaded / total * 100 || 0);
             if (div) div.style.width = progress + '%';
         }).then(b => {
@@ -261,7 +271,7 @@ export class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
         }).catch(e => {
             console.log(e)
             if (div) div.style.width = '0';
-        })
+        })*/
 
     }
 

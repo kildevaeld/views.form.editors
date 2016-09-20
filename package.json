@@ -1,6 +1,6 @@
 {
   "name": "views.form.editors",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -32,7 +32,8 @@
     "collection": "git+https://github.com/kildevaeld/collectionjs.git",
     "views": "git+https://github.com/kildevaeld/views.git",
     "views.form": "git+https://github.com/kildevaeld/views.form.git",
-    "assets.gallery": "git+https://github.com/kildevaeld/assets.gallery.git"
+    "torsten.views": "git+https://github.com/kildevaeld/torsten.views.git",
+    "torsten": "git+https://github.com/kildevaeld/torsten.client.git"
   },
   "peerDependencies": {},
   "jspm": {
@@ -44,7 +45,9 @@
       "collection": "github:kildevaeld/collectionjs@master",
       "views": "github:kildevaeld/views@master",
       "views.form": "github:kildevaeld/views.form@master",
-      "assets.gallery": "github:kildevaeld/assets.gallery@master"
+      "assets.gallery": "github:kildevaeld/assets.gallery@master",
+      "torsten.views": "github:kildevaeld/torsten.views@master",
+      "torsten": "github:kildevaeld/torsten.client@master"
     }
   }
 }

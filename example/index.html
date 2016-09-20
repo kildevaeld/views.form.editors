@@ -4,7 +4,7 @@
 <head>
     <link href="../node_modules/select2/dist/css/select2.min.css" rel="stylesheet" />
     <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../node_modules/assets.gallery/dist/css/assets-gallery.css" rel="stylesheet" />
+    <link href="../node_modules/torsten.views/dist/css/torsten.views.css" rel="stylesheet" />
     <link href="../node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
     
     <script src="../node_modules/babel-polyfill/dist/polyfill.js"></script>
@@ -18,7 +18,7 @@
     <script src="../node_modules/views/dist/views.js"></script>
     <script src="../node_modules/collection/dist/collection.js"></script>
     <script src="../node_modules/views.form/dist/views.form.min.js"></script>
-    <script src="../node_modules/assets.gallery/dist/js/assets-gallery.js"></script>
+    <script src="../node_modules/torsten.views/dist/torsten.views.bundle.js"></script>
     <script src="../dist/views.form.editors.js"></script>
     <style>
         [form-editor="assets.crop"] .crop-preview {
@@ -139,8 +139,8 @@
     <button id="button">ok</button>
      <button id="clear">clear</button>
     <script>
-        var client = Assets.createClient({
-            url: 'http://localhost:5000'
+        var client = torsten.views.createClient({
+            endpoint: 'http://localhost:3000'
         });
         
         var form = new views.form.Form({

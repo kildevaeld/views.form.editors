@@ -1,24 +1,24 @@
-import { CropView, AssetsModel, CropViewOptions, AssetsClient, FileUploader } from 'assets.gallery';
+import { IClient } from 'torsten';
+import { CropViewOptions, FileInfoModel, CropView } from 'torsten.views';
 import { BaseEditor, IEditorOptions } from 'views.form';
 import { Modal } from './modal';
 export interface CropEditorOptions extends CropViewOptions, IEditorOptions {
-    client?: AssetsClient;
+    client?: IClient;
     maxSize?: number;
     mimeType?: string | string[];
     cropping?: boolean;
     host?: string;
 }
-export declare class CropEditor extends BaseEditor<HTMLDivElement, AssetsModel> {
-    model: AssetsModel;
+export declare class CropEditor extends BaseEditor<HTMLDivElement, FileInfoModel> {
+    model: FileInfoModel;
     modal: Modal;
     crop: CropView;
-    uploader: FileUploader;
     options: CropEditorOptions;
     _toggled: boolean;
-    getValue(): AssetsModel;
-    setValue(model: AssetsModel): void;
+    getValue(): FileInfoModel;
+    setValue(model: FileInfoModel): void;
     constructor(options?: CropEditorOptions);
-    onModel(model: AssetsModel): void;
+    onModel(model: FileInfoModel): void;
     onSetElement(): void;
     private _getOptions(options);
     onRender(): void;
