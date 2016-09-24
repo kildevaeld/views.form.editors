@@ -18,10 +18,6 @@
         "src/select2/index.ts",
         "src/select2/adaptor.ts",
 
-        "src/assets/index.ts",
-        "src/assets/modal.ts",
-        "src/assets/crop-view.ts",
-
         "src/datetime/index.ts"
     ]
 }

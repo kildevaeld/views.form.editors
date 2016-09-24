@@ -31,9 +31,7 @@
     "orange.dom": "git+https://github.com/kildevaeld/orange.dom.git",
     "collection": "git+https://github.com/kildevaeld/collectionjs.git",
     "views": "git+https://github.com/kildevaeld/views.git",
-    "views.form": "git+https://github.com/kildevaeld/views.form.git",
-    "torsten.views": "git+https://github.com/kildevaeld/torsten.views.git",
-    "torsten": "git+https://github.com/kildevaeld/torsten.client.git"
+    "views.form": "git+https://github.com/kildevaeld/views.form.git"
   },
   "peerDependencies": {},
   "jspm": {
@@ -44,10 +42,7 @@
       "orange.dom": "github:kildevaeld/orange.dom@master",
       "collection": "github:kildevaeld/collectionjs@master",
       "views": "github:kildevaeld/views@master",
-      "views.form": "github:kildevaeld/views.form@master",
-      "assets.gallery": "github:kildevaeld/assets.gallery@master",
-      "torsten.views": "github:kildevaeld/torsten.views@master",
-      "torsten": "github:kildevaeld/torsten.client@master"
+      "views.form": "github:kildevaeld/views.form@master"
     }
   }
 }
