@@ -788,7 +788,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var date = this._datePicker.date().toDate();
 	            if (date == this._date) return;
 	            this._date = date;
-	            console.log(date);
 	            this.trigger('change');
 	        }
 	    }, {
