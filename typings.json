@@ -4,6 +4,7 @@
   "globalDependencies": {
     "cropperjs": "registry:dt/cropperjs#0.0.0+20160724062638",
     "jquery": "registry:dt/jquery#1.10.0+20160704162008",
+    "moment": "registry:dt/moment#2.11.1+20160829143156",
     "select2": "registry:dt/select2#4.0.1+20160812083516"
   }
 }

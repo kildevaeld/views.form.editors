@@ -26,6 +26,8 @@ export declare class Select2 extends BaseEditor<HTMLSelectElement, any> {
     setValue(value: any): void;
     getValue(): any;
     clear(): void;
+    enabled(): void;
+    disabled(): void;
     _normalizeData(data: any): any;
     onRender(): void;
     private _get_options(attr);

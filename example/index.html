@@ -12,6 +12,7 @@
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../node_modules/orange/dist/orange.js"></script>
+    <script src="../node_modules/orange.dom/dist/orange.dom.js"></script>
     <script src="../node_modules/select2/dist/js/select2.full.js"></script>
     <script src="../node_modules/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <script src="../node_modules/eventsjs/dist/eventsjs.js"></script>
@@ -125,11 +126,6 @@
             <select allow-clear placeholder="Pick" style="width:100%;" max="2" name="select2" error="Du skal udfylde navn" required form-editor="select2">
             </select>
         </div>
-       
-        <div class="field" style="width:300px;">
-            <label class="field-label">Image</label>
-            <div name="image" form-editor="assets.crop" host="http://localhost:5000" cropping required validate-required="true"></div>
-        </div>
         <div class="field form-field" style="width:300px;position:relative;">
             <label class="field-label">Date</label>
             <input class="form-control" type="text" name="date" form-editor="datetime" required use-current locale="da" />
@@ -147,32 +143,29 @@
             el: document.querySelector('#form'),
             createHelpAreas: true,
             validateOnChange: true,
-            fieldOptions: {
+            fields: {
                 image: {
-                    editorOptions: {
-                        client: client,
-                        maxSize: 2048
-                    }
+                    client: client,
+                    maxSize: 2048
                 },
                 select: {
-                    editorOptions: {
-                        data: ['Hello', 'World', 'Brad', 'Thom']
-                    }
+                    data: ['Hello', 'World', 'Brad', 'Thom']
                 },
                 select2: {
-                    editorOptions: {
-                        data: ['Hello', 'World', 'Michael', 'Thomas']
-                    }
+                    data: ['Hello', 'World', 'Michael', 'Thomas']
                 }
 
             }
         });
 
-        form.model = new collection.Model({
-            name: "Hello"
-        });
+        
 
         form.render()
+
+        form.model = new collection.Model({
+            name: "Hello",
+            date: moment().add('hour', 2).toDate()
+        });
         
         var b = document.querySelector('#button');
         b.addEventListener('click', function() {
@@ -188,7 +181,7 @@
         //form.model.set('url', 'http://localhost');
 
         form.model.on('change', function() {
-            console.log(form.model.toJSON());
+            console.log(form.model);
         })
 
         var select = form.getFieldByName('select');

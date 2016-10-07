@@ -134,6 +134,14 @@ export class Select2 extends BaseEditor<HTMLSelectElement, any> {
 		this.setValue(null);
 	}
 
+	enabled() {
+		$(this.el).prop('disabled', false);
+	}
+
+	disabled() {
+		$(this.el).prop('disabled', true);
+	}
+
 	_normalizeData(data:any) {
 		if (data == null) return null;
 		if (Array.isArray(data)) {
