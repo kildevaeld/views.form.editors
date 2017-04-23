@@ -53,7 +53,7 @@ export function customAdapter(select: Select2): IPromise<any> {
           let found = find(this.found, (item) => {
             return String(item.id) === val[i];
           });
-
+        
           if (!found) {
 
             /*if (Array.isArray(select.data)) {
@@ -106,6 +106,7 @@ export function customAdapter(select: Select2): IPromise<any> {
         
         findInData(params.term, select).then( found => {
         	results.results = found.map( m => m.toJSON());
+          
         	done(results);
         }).catch( e => { throw e; });
 

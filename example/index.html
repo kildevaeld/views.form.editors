@@ -12,10 +12,11 @@
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../node_modules/orange/dist/orange.js"></script>
+    <script src="../node_modules/orange.request/dist/orange.request.js"></script>
     <script src="../node_modules/orange.dom/dist/orange.dom.js"></script>
     <script src="../node_modules/select2/dist/js/select2.full.js"></script>
     <script src="../node_modules/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="../node_modules/eventsjs/dist/eventsjs.js"></script>
+    <script src="../node_modules/eventsjs/dist/events.js"></script>
     <script src="../node_modules/views/dist/views.js"></script>
     <script src="../node_modules/collection/dist/collection.js"></script>
     <script src="../node_modules/views.form/dist/views.form.min.js"></script>
@@ -135,24 +136,27 @@
     <button id="button">ok</button>
      <button id="clear">clear</button>
     <script>
-        var client = torsten.views.createClient({
+        /*var client = torsten.views.createClient({
             endpoint: 'http://localhost:3000'
-        });
+        });*/
         
         var form = new views.form.Form({
             el: document.querySelector('#form'),
             createHelpAreas: true,
             validateOnChange: true,
             fields: {
-                image: {
-                    client: client,
-                    maxSize: 2048
-                },
+                
                 select: {
-                    data: ['Hello', 'World', 'Brad', 'Thom']
+                    data: new collection.RestCollection(null,{
+                        url: "http://localhost:3000/api/genre"
+                    }),
+                    textAttribute: 'name',
+                    templateSelection: (data) => data.name,
+                    templateResult: (data) => data.name
+                    //data: ['Hello', 'World', 'Brad', 'Thom']
                 },
                 select2: {
-                    data: ['Hello', 'World', 'Michael', 'Thomas']
+                    data: ['Hello2', 'World', 'Michael', 'Thomas']
                 }
 
             }
@@ -170,7 +174,7 @@
         var b = document.querySelector('#button');
         b.addEventListener('click', function() {
             let v = form.validate();
-            console.log(form.model)
+            console.log(form.model.toJSON())
         });
 
         b = document.querySelector('#clear');
@@ -181,12 +185,12 @@
         //form.model.set('url', 'http://localhost');
 
         form.model.on('change', function() {
-            console.log(form.model);
+            //console.log(form.model);
         })
 
         var select = form.getFieldByName('select');
 
-        select.value = "Hello";
+        //select.value = "Hello";
     </script>
 </body>
 

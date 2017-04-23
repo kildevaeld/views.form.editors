@@ -67,7 +67,7 @@ export class Select2 extends BaseEditor<HTMLSelectElement, any> {
 		let ids = value.map(m => {
 			
 			if (typeof m === 'string') {
-				if (<any>m === "") return null;
+				if (m === "") return null;
 				return m;
 			} else if (isModel(m)) {
 				return String(m.id);
@@ -85,7 +85,6 @@ export class Select2 extends BaseEditor<HTMLSelectElement, any> {
 				return;
 			}
 		}
-
 
 		$el.html('')
 		value.forEach(e => {
@@ -111,13 +110,15 @@ export class Select2 extends BaseEditor<HTMLSelectElement, any> {
 
 	getValue(): any {
 		let out, val = $(this.el).val();
-
+		
 		if (val == null) return out;
 
 		if (this.data) {
 			if (this.options.multiple) {
 				out = val.map(m => {
+					
 					let model = this.data.find(m);
+					
 					return model != null ? model.toJSON() : null;
 				}).filter(e => e != null);
 			} else {
@@ -126,7 +127,7 @@ export class Select2 extends BaseEditor<HTMLSelectElement, any> {
 		} else {
 			out = this.options.multiple ? [] : null;
 		}
-
+		
 		return out;
 	}
 
@@ -168,7 +169,7 @@ export class Select2 extends BaseEditor<HTMLSelectElement, any> {
 		this._get_options(this.options)
 			.then(options => {
 				this.options = options;
-				
+			
 				$(this.el).select2(options);
 				$(this.el).on('change', () => {
 					this.trigger('change');
